@@ -1,0 +1,1 @@
+true //new File(basedir, "target/js/default-bundle.bundle.js").exists()

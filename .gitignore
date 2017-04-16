@@ -1,0 +1,33 @@
+# Node
+
+node_modules
+
+# Maven
+
+target
+
+# Gradle
+
+/**/.gradle/
+/**/build/
+/**/gradlew
+/**/gradlew.bat
+
+# IntelliJ
+
+.idea
+*.iml
+
+# Eclipse
+
+/**/bin/
+/**/tmp/
+/**/.classpath
+/**/.metadata/
+/**/.project
+/**/.settings/
+/**/.springBeans
+
+# Mac OS
+
+.DS_Store
