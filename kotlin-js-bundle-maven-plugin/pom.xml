@@ -4,10 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.crunc</groupId>
-    <artifactId>kotlinjs-bundle-maven-plugin</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>kotlin-js-bundle-maven-plugin</artifactId>
     <packaging>maven-plugin</packaging>
+
+    <parent>
+        <groupId>com.github.crunc</groupId>
+        <artifactId>kotlin-js-bundle</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>..</relativePath>
+    </parent>
 
     <name>Kotlin Bundle Maven Plugin</name>
     <description>Kotlin Bundle Maven Plugin</description>
