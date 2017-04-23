@@ -8,7 +8,7 @@
     <packaging>maven-plugin</packaging>
 
     <parent>
-        <groupId>com.github.crunc</groupId>
+        <groupId>io.yegair</groupId>
         <artifactId>kotlin-js-bundle</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>..</relativePath>
@@ -17,16 +17,10 @@
     <name>Kotlin Bundle Maven Plugin</name>
     <description>Kotlin Bundle Maven Plugin</description>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <kotlin.version>1.1.1</kotlin.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib</artifactId>
-            <version>${kotlin.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
