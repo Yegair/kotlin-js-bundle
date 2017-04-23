@@ -18,6 +18,22 @@
     <description>Kotlin Bundle Maven Plugin</description>
     <url>https://github.com/Yegair/kotlin-js-bundle</url>
 
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>https://opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Hauke Jaeger</name>
+            <email>hauke.jaeger@yegair.io</email>
+            <organization>Yegair</organization>
+            <organizationUrl>http://yegair.io</organizationUrl>
+        </developer>
+    </developers>
+
     <dependencies>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>

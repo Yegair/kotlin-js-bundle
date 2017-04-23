@@ -12,6 +12,22 @@
     <description>KotlinJS Bundle</description>
     <url>https://github.com/Yegair/kotlin-js-bundle</url>
 
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>https://opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Hauke Jaeger</name>
+            <email>hauke.jaeger@yegair.io</email>
+            <organization>Yegair</organization>
+            <organizationUrl>http://yegair.io</organizationUrl>
+        </developer>
+    </developers>
+
     <scm>
         <url>https://github.com/Yegair/kotlin-js-bundle.git</url>
         <connection>scm:git:git@github.com:Yegair/kotlin-js-bundle.git</connection>
@@ -52,14 +68,4 @@
         </pluginRepository>
     </pluginRepositories>
 
-    <developers>
-        <developer>
-            <id>hauke.jaeger</id>
-            <email>hauke.jaeger@yegair.io</email>
-            <name>Hauke Jaeger</name>
-            <roles>
-                <role>developer</role>
-            </roles>
-        </developer>
-    </developers>
 </project>
