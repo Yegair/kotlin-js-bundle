@@ -1,7 +1,7 @@
 language: java
 jdk:
   - oraclejdk8
-sudo: false
+sudo: true
 script: mvn clean package verify --settings travis/settings.xml
 global:
   env:
@@ -12,7 +12,7 @@ global:
   - secure: f8O/8ap/1JpGW98HLbS9YXV9hPrAwsWbwUN7DYCDk6TUmX7A3Qop871xp6FfWSIkYxUv+7vOG3o1B2dG//oegOlQGc2N5JPdc2BT/7/PDy8nki/9Z5vQNDKlHWSjYHLc/zWJ9fRFsxl17ScFbPZGTfpDYqqGRLCLY7ODVBalK/DCApcLCUuu+zdkmqhF7nShmxAdvgjCgtsO+z6q3hVABQ8w9yd3Z0mwwyqdthdavzdo42mJR8mdx1ZUG5hpZmCh27sVElhTVWJcDHjO6nCySPNevvKabQksnRWPEg0q0yhmBWlvPM3QmRqzB51N/AR2ZCOblzGS1Dq3YIRKl+IK/Rl43SLhYIjt67PQ8vfkF7O11zfDGmcBAxlApw0pUlc+I/r4JdYgzG7ijFcDcWG7/i0kNAgo+QG1XC/Ve/MbJjd6Ya6nV/10DTF+7YlKawPUSi2ksB+B/RH7XCVrhjxhAT38JVK8xFn8M4zhtvqJYTSAi5TUwAVuSMTzvkUvJwmzOxQcfl14g2pRBLWdX2HncrFhET0NH3rSSQOtdD3zBpKL84Y4eRL1VjpkvAch48WmZeLH/SJKqETJMQbi9ji6Coaf72pee2qGaEWJprYew0nv9e94mDrpgxqrwER0WZhJVbLe84jSi/a8piR1NucPaaQRpHcMVHaX4D1ePMH/7hs=
   - secure: mrjdGYppRALKN/ovJDzj0d6RW077a5U0V0c2/X8yIXLI64mpw1BzhUpn8XnNIOjTE7y6ZMEigVpwJGyt08zb+3pkmS6PdmcHRWiG94DopfaClBDtHiGc/W/085aATH55Xs8OLE5ohzEwLpN2cTtzxMtCov+E98lDlkg3m95400HZMW5SFjZgDJNnSZSX0iy9/vLZySCc4b5AZU8NFITytHNKSHteLuexpruVMq9J7v8+eC2HOzBtQmSjDt3rprsKEd0VH8m7EX5V0jxM52QIzQ/s8z3jto7JldKMLX9tieRd6lmWmfPCkVSbO5TE415TW2ClHSDYxhbOOLNl8K+RN1SH4pjiXgDGqdVbKGK/8wKAFGHU/YytUyOdkFdtqBjIfc2EuqBti6wwteK/1Z+vovmmm8ee63RNAq7EzHbl3XigS9sCCbGRjM6JT97FhiQjVdpLUjk5MQU2R5n5zUVX8xdcP81CArnuTYlwJARAbInYxhwiftHqBT+KtQcQUd8XsK7vVXIku/4fKec9L51c78GhzcaIp7lJwPh70B1/UUTI6wovGAr/55hUFfyafPNsffcqujzET+HxiYpq3jvlIU/CqzBdWWMWjVaMvuh7Tpypj/PMry2qA0+5imROW4sqwB1GqKgEuO5YhzM/t9K6/DOHDLXqGxdH2+lmhDYUSsA=
 before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install -y gnupg2
+  - apt-get update -qq
+  - apt-get install -y gnupg2
   - openssl aes-256-cbc -K $encrypted_42e251e38940_key -iv $encrypted_42e251e38940_iv -in travis/GPG_KEY.asc.enc -out travis/GPG_KEY.asc -d
   - gpg2 --batch --import travis/GPG_KEY.asc
