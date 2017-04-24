@@ -16,6 +16,7 @@ before_install:
   - openssl aes-256-cbc -K $encrypted_42e251e38940_key -iv $encrypted_42e251e38940_iv
     -in travis/GPG_KEY.asc.enc -out travis/GPG_KEY.asc -d
   - gpg2 --batch --import travis/GPG_KEY.asc
+  - gpg2 --list-secret-keys
 addons:
   apt:
     packages:
