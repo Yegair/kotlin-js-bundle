@@ -166,6 +166,7 @@
                     <postBuildHookScript>verify</postBuildHookScript>
                     <addTestClassPath>true</addTestClassPath>
                     <streamLogs>true</streamLogs>
+                    <javaHome>${env.JAVA_HOME}</javaHome>
                 </configuration>
                 <executions>
                     <execution>
