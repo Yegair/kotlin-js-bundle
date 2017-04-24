@@ -2,7 +2,7 @@ language: java
 jdk:
   - oraclejdk8
 sudo: true
-script: mvn clean package verify --settings travis/settings.xml
+script: mvn clean package verify -X --settings travis/settings.xml
 env:
   global:
     - secure: d7tuhVqWZphpA/FBu/rclIaUObtyWV6khderwMDWAHYuRXF05a61V19uCMIOdQdVA0VxXSej0yXNzNsx9RUojoBRXB6kqd98lDLT51kpiLSFD70n7tj115rK5FqakyhbDEyJk0Aue/a4BCZrlr9agALmP/7ylm6nb/FGZgc8ZmS9VpCHmKpDLfx3JGIpbC5pTRPPqk0qCaiiayTBHzwx5v4k8YgdV3cT5q29P0cDZ5IhwdZwWozLy5o5h0mI0UW5R/LGyZwYBuT6HLE9jk2lytFGEhUU0EOWEZffDRj7NjM3KBfDVdFdOYFAVIx/PzEgl+/w76fBMNQKmpnUyOCjzo8toeVzEF7Y6pgjGhxpGlVX50ijCvh0g+iCh2B2W5hqWLYK+4tXf4CvcXwf78q149dLEZKOzk3V+vXeE4YDBrTT6vlrvbGbIetihONcTOmcY0pAtY1eaU6+GKukYtUFiKkyw5gmaUfA/tR0MOn5NvIEXPKY8efCAg4sHGcIZcGX/KoQqaRRp3sbzu609MldCaK+7qX+kWgsC0u7UHngvfVFPx4yESpJ1gz4UmDpVTuSjhSz/BVNKKYDGPGjppz22zo6UHAglsIoJCRaG4A0BS63Ia8Fe2kGrJ6S0tnsQKW1pGzAIaL3M8WoRKmCTVjiXsRsiycs15+yLgwRvg/0Q9Y=
