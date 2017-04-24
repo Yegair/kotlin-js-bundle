@@ -147,7 +147,7 @@
                 <executions>
                     <execution>
                         <id>attach-sources</id>
-                        <phase>verify</phase>
+                        <phase>pre-site</phase>
                         <goals>
                             <goal>jar-no-fork</goal>
                         </goals>
