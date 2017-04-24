@@ -31,3 +31,5 @@ target
 # Mac OS
 
 .DS_Store
+
+GPG_KEY.asc
