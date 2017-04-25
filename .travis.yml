@@ -15,6 +15,8 @@ env:
 before_install:
   - openssl aes-256-cbc -K $encrypted_472a6e94713e_key -iv $encrypted_472a6e94713e_iv -in travis/GPG_KEY.asc.enc -out travis/GPG_KEY.asc -d
   - gpg2 --batch --import travis/GPG_KEY.asc
+  - echo $OSSRH_PASSWORD
+  - echo $GPG_PASSPHRASE
 addons:
   apt:
     packages:
