@@ -7,6 +7,7 @@ function snapshot() {
 
 function release() {
     echo "building a tag -> Release"
+    mvn clean dokka:javadocJar install -V -U --settings travis/settings.xml
 }
 
 function main() {

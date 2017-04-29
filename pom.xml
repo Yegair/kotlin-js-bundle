@@ -73,7 +73,7 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.5.3</version>
                 <configuration>
-                    <remoteTagging>false</remoteTagging>
+                    <tagNameFormat>@{project.version}</tagNameFormat>
                     <dryRun>true</dryRun>
                 </configuration>
             </plugin>
