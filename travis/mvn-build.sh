@@ -1,19 +1,24 @@
 #! /usr/bin/env bash
 
 function snapshot() {
-    echo "not building a tag -> Snapshot"
+    echo "snapshot build"
     mvn clean dokka:javadocJar install -V -U --settings travis/settings.xml
 }
 
 function release() {
-    echo "building a tag -> Release"
+    echo "release build"
     mvn clean dokka:javadocJar install -V -U --settings travis/settings.xml
 }
 
+function build() {
+    echo "build"
+    mvn clean install -V -U --settings travis/settings.xml
+}
+
 function main() {
-    if [[ $TRAVIS_TAG == Release* ]];
-        then release;
-        else snapshot;
+    if [[ $TRAVIS_BRANCH == "develop" ]]; then snapshot;
+    elif [[ $TRAVIS_BRANCH == "master" ]]; then release;
+    else build;
     fi;
 }
 
