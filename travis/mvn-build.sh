@@ -2,12 +2,12 @@
 
 function snapshot() {
     echo "snapshot build"
-    mvn clean dokka:javadocJar deploy -V -U --settings travis/settings.xml
+    mvn clean dokka:javadocJar source:jar-no-fork deploy -V -U --settings travis/settings.xml
 }
 
 function release() {
     echo "release build"
-    mvn clean dokka:javadocJar install -V -U --settings travis/settings.xml
+    mvn clean dokka:javadocJar source:jar-no-fork install -V -U --settings travis/settings.xml
 }
 
 function build() {
