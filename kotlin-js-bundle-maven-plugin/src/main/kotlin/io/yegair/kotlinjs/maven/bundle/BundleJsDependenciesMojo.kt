@@ -40,6 +40,11 @@ import java.io.File
 import java.io.PrintWriter
 import java.nio.file.Path
 
+/**
+ * Base for Mojos that produce JS bundles.
+ *
+ * @author Hauke Jaeger, hauke.jaeger@yegiar.io
+ */
 abstract class BundleJsDependenciesMojo : AbstractMojo() {
 
     @Component(hint = "default")
@@ -56,6 +61,13 @@ abstract class BundleJsDependenciesMojo : AbstractMojo() {
 
     @Parameter(defaultValue = "false")
     private var skip: Boolean = false
+
+    /**
+     * Indicates whether `<editor-fold>` comments should be included in the bundle file.
+     * They make it possible to collapse regions of the bundle file in certain editors.
+     */
+    @Parameter(defaultValue = "true")
+    private var editorFold: Boolean = true
 
     protected abstract val extractDirectory: File
     protected abstract val outputDirectory: File
@@ -123,22 +135,20 @@ abstract class BundleJsDependenciesMojo : AbstractMojo() {
 
             dependencies.forEach { artifact ->
 
-                writer.println("// <editor-fold description=\"${artifact.groupId} : ${artifact.artifactId} : ${artifact.version}\">\n")
+                editorFold(writer, "${artifact.groupId} : ${artifact.artifactId} : ${artifact.version}") {
 
-                artifact.jsFiles(filter).forEach { file ->
+                    artifact.jsFiles(filter).forEach { file ->
 
-                    log.info("adding file to bundle: $file")
+                        log.info("adding file to bundle: $file")
 
-                    writer.println("// <editor-fold description=\"${file.name}\">\n")
+                        editorFold(writer, file.name) {
 
-                    file.bufferedReader().use { reader ->
-                        reader.copyTo(writer)
+                            file.bufferedReader().use { reader ->
+                                reader.copyTo(writer)
+                            }
+                        }
                     }
-
-                    writer.println("// </editor-fold>\n")
                 }
-
-                writer.println("// </editor-fold>\n")
             }
         }
     }
@@ -147,6 +157,24 @@ abstract class BundleJsDependenciesMojo : AbstractMojo() {
         val file = outputFile.toFile()
         file.parentFile.mkdirs()
         return file.printWriter()
+    }
+
+    private fun editorFold(writer:PrintWriter, description: String, block: () -> Unit) {
+        startEditorFold(writer, description)
+        block()
+        endEditorFold(writer)
+    }
+
+    private fun startEditorFold(writer: PrintWriter, description: String) {
+        if (editorFold) {
+            writer.println("// <editor-fold description=\"$description\">\n")
+        }
+    }
+
+    private fun endEditorFold(writer:PrintWriter) {
+        if (editorFold) {
+            writer.println("// </editor-fold>\n")
+        }
     }
 
     private fun Artifact.extractDir(): Path =

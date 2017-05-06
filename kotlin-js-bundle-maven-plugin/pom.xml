@@ -184,18 +184,66 @@
                     <!--<debug>true</debug>-->
                     <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
                     <settingsFile>src/it/settings.xml</settingsFile>
-                    <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
+                    <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>                            <postBuildHookScript>verify-default</postBuildHookScript>
                     <postBuildHookScript>verify</postBuildHookScript>
                     <addTestClassPath>true</addTestClassPath>
-                    <streamLogs>true</streamLogs>
+                    <streamLogs>false</streamLogs>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>integration-test</id>
+                        <id>it-foo</id>
                         <goals>
                             <goal>install</goal>
                             <goal>run</goal>
                         </goals>
+                        <configuration>
+                            <goals>clean install</goals>
+                            <invokerTest>foo</invokerTest>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>it-bar</id>
+                        <goals>
+                            <goal>install</goal>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <goals>clean install</goals>
+                            <invokerTest>bar</invokerTest>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>it-baz</id>
+                        <goals>
+                            <goal>install</goal>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <goals>clean install</goals>
+                            <invokerTest>baz</invokerTest>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>it-foobar</id>
+                        <goals>
+                            <goal>install</goal>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <goals>clean install</goals>
+                            <invokerTest>foobar</invokerTest>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>it-foobaz</id>
+                        <goals>
+                            <goal>install</goal>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <goals>clean install</goals>
+                            <invokerTest>foobaz</invokerTest>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

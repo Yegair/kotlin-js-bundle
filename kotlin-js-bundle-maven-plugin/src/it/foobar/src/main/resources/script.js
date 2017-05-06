@@ -1,0 +1,1 @@
+function foobar() { return foo() + bar(); }
