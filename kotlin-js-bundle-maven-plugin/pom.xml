@@ -224,6 +224,28 @@
                         </configuration>
                     </execution>
                     <execution>
+                        <id>it-quux</id>
+                        <goals>
+                            <goal>install</goal>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <goals>clean install</goals>
+                            <invokerTest>quux</invokerTest>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>it-quuz</id>
+                        <goals>
+                            <goal>install</goal>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <goals>clean install</goals>
+                            <invokerTest>quuz</invokerTest>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>it-foobar</id>
                         <goals>
                             <goal>install</goal>

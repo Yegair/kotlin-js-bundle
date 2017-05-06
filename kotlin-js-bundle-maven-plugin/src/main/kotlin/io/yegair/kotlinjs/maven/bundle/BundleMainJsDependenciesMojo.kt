@@ -42,7 +42,7 @@ class BundleMainJsDependenciesMojo : BundleJsDependenciesMojo() {
         const val Name = "bundle-js-dependencies"
     }
 
-    @Parameter(defaultValue = "\${project.build.directory}/kotlinjs-bundle/dependencies")
+    @Parameter(defaultValue = "\${project.build.directory}/kotlin-js-bundle/dependencies")
     override lateinit var extractDirectory: File
 
     @Parameter(defaultValue = "\${project.build.directory}/js")

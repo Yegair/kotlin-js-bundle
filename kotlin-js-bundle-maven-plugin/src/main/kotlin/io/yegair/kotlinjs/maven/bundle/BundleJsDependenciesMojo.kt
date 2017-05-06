@@ -59,6 +59,9 @@ abstract class BundleJsDependenciesMojo : AbstractMojo() {
     @Parameter(defaultValue = "\${session}", readonly = true, required = true)
     protected lateinit var session: MavenSession
 
+    /**
+     * Indicates whether the execution of this Mojo should be skipped
+     */
     @Parameter(defaultValue = "false")
     private var skip: Boolean = false
 
@@ -69,10 +72,24 @@ abstract class BundleJsDependenciesMojo : AbstractMojo() {
     @Parameter(defaultValue = "true")
     private var editorFold: Boolean = true
 
+    /**
+     * The directory where the dependencies will be extracted during the execution of this Mojo.
+     */
     protected abstract val extractDirectory: File
+
+    /**
+     * The directory where the bundle file be be created, e.g. `${project.build.directory}/js`.
+     */
     protected abstract val outputDirectory: File
+
+    /**
+     * The name of the bundle file, e.g. `foo.bundle.js`
+     */
     protected abstract val outputFilename: String
 
+    /**
+     * Location of the bundle file (combination of [outputDirectory] and [outputFilename]).
+     */
     private val outputFile: Path get() = outputDirectory.toPath().resolve(outputFilename)
 
     override fun execute() {
@@ -80,16 +97,19 @@ abstract class BundleJsDependenciesMojo : AbstractMojo() {
         when {
 
             project.packaging == "pom" ->
-                log.debug("[kotlinjs-bundle-maven-plugin] goal could not be applied to pom project")
+                log.debug("[kotlin-js-bundle-maven-plugin] goal could not be applied to pom project")
 
             skip ->
-                log.debug("skipping [kotlinjs-bundle-maven-plugin] as per configuration")
+                log.debug("skipping [kotlin-js-bundle-maven-plugin] as per configuration")
 
             else ->
                 bundleJsDependencies()
         }
     }
 
+    /**
+     * Main execution of this Mojo.
+     */
     private fun bundleJsDependencies() {
 
         val graph = buildDependencyGraph()
@@ -102,6 +122,9 @@ abstract class BundleJsDependenciesMojo : AbstractMojo() {
         bundle(collector, filter)
     }
 
+    /**
+     * Builds the dependency graph for the current project.
+     */
     private fun buildDependencyGraph(): DependencyNode {
 
         val sessionRequest = session.projectBuildingRequest
@@ -111,6 +134,11 @@ abstract class BundleJsDependenciesMojo : AbstractMojo() {
         return dependencyGraphBuilder.buildDependencyGraph(request, ScopeArtifactFilter("compile"))
     }
 
+    /**
+     * Extracts the given `dependencies` into the [extractDirectory]. Each artifact is extracted
+     * into it's own sub-directory which is determined by [BundleJsDependenciesMojo.extractDir].
+     * Only the files matching the given `filter` are extracted.
+     */
     private fun extract(dependencies: Iterable<Artifact>, filter: JsDependencyFilter) =
             dependencies.forEach { artifact ->
 
@@ -129,9 +157,12 @@ abstract class BundleJsDependenciesMojo : AbstractMojo() {
             }
 
 
+    /**
+     * Combines the JS files of the given dependencies into a single bundle.
+     */
     private fun bundle(dependencies: Iterable<Artifact>, filter: JsDependencyFilter) {
 
-        outputWriter().use { writer ->
+        bundleWriter().use { writer ->
 
             dependencies.forEach { artifact ->
 
@@ -153,36 +184,57 @@ abstract class BundleJsDependenciesMojo : AbstractMojo() {
         }
     }
 
-    private fun outputWriter(): PrintWriter {
+    /**
+     * Creates a new [PrintWriter] for writing the bundle file.
+     */
+    private fun bundleWriter(): PrintWriter {
         val file = outputFile.toFile()
         file.parentFile.mkdirs()
         return file.printWriter()
     }
 
+    /**
+     * Wraps everything that is written to the given [PrintWriter] within the given `block` into
+     * `<editor-fold>` comments with the given description.
+     */
     private fun editorFold(writer:PrintWriter, description: String, block: () -> Unit) {
         startEditorFold(writer, description)
         block()
         endEditorFold(writer)
     }
 
+    /**
+     * Writes an opening `<editor-fold>` comment.
+     */
     private fun startEditorFold(writer: PrintWriter, description: String) {
         if (editorFold) {
             writer.println("// <editor-fold description=\"$description\">\n")
         }
     }
 
+    /**
+     * Writes a closing `<editor-fold>` comment.
+     */
     private fun endEditorFold(writer:PrintWriter) {
         if (editorFold) {
             writer.println("// </editor-fold>\n")
         }
     }
 
+    /**
+     * Resolves the directory the [Artifact] should be extracted to.
+     */
     private fun Artifact.extractDir(): Path =
             extractDirectory.toPath()
                     .resolve(groupId)
                     .resolve(artifactId)
                     .resolve(version)
 
+    /**
+     * Resolves the JS files for the [Artifact]. If the [Artifact] is a dependency this method
+     * delegates to [artifactJsFiles]. If the [Artifact] is the current porject this method
+     * delegates to [projectJsFiles].
+     */
     private fun Artifact.jsFiles(filter: JsDependencyFilter): Sequence<File> {
 
         val files = when {
@@ -202,6 +254,9 @@ abstract class BundleJsDependenciesMojo : AbstractMojo() {
                 }
     }
 
+    /**
+     * Resolves the extracted JS files for the [Artifact].
+     */
     private fun artifactJsFiles(artifact: Artifact): Sequence<File> {
 
         val dir = artifact.extractDir().toFile()
@@ -213,11 +268,21 @@ abstract class BundleJsDependenciesMojo : AbstractMojo() {
         }
     }
 
+    /**
+     * Resolves the JS files for the current project that should be included in the bundle.
+     */
     abstract protected fun projectJsFiles(): Sequence<File>
 
+    /**
+     * Determines whether the [File] is the main JS file of the given [Artifact].
+     */
     private fun File.isMainFileOf(artifact: Artifact): Boolean =
             nameWithoutExtension == artifact.artifactId
 
+    /**
+     * Determines whether the [File] is the test JS file of the given [Artifact].
+     */
     private fun File.isTestFileOf(artifact: Artifact): Boolean =
-            nameWithoutExtension == "${artifact.artifactId}-tests"
+            nameWithoutExtension == "${artifact.artifactId}-tests" ||
+                    nameWithoutExtension == "${artifact.artifactId}-test"
 }

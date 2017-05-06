@@ -5,10 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.yegair.maven.it</groupId>
-    <artifactId>js-project</artifactId>
+    <artifactId>quux</artifactId>
     <version>0.0.1.BUILD-SNAPSHOT</version>
 
-    <name>JS Project</name>
+    <name>Quux</name>
+    <description>A simple Jar containing a JS script</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

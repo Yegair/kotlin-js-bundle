@@ -5,24 +5,19 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.yegair.maven.it</groupId>
-    <artifactId>project-with-js-dependency</artifactId>
+    <artifactId>quuz</artifactId>
     <version>0.0.1.BUILD-SNAPSHOT</version>
 
-    <name>Project with JS dependency</name>
+    <name>Quuz</name>
+    <description>A simple Jar containing a JS script as well as a test JS script</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>io.yegair.maven.it</groupId>
-            <artifactId>js-project</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
-
     <build>
+        <outputDirectory>${project.build.directory}/js</outputDirectory>
+        <testOutputDirectory>${project.build.directory}/test-js</testOutputDirectory>
         <plugins>
             <plugin>
                 <groupId>@project.groupId@</groupId>
@@ -36,6 +31,12 @@
                         <id>bundle</id>
                         <goals>
                             <goal>bundle-js-dependencies</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>test-bundle</id>
+                        <goals>
+                            <goal>bundle-js-test-dependencies</goal>
                         </goals>
                     </execution>
                 </executions>

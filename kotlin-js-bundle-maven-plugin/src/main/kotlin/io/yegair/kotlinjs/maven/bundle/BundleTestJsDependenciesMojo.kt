@@ -43,13 +43,13 @@ class BundleTestJsDependenciesMojo : BundleJsDependenciesMojo() {
         const val Name = "bundle-js-test-dependencies"
     }
 
-    @Parameter(defaultValue = "\${project.build.directory}/kotlinjs-bundle/test-dependencies")
+    @Parameter(defaultValue = "\${project.build.directory}/kotlin-js-bundle/test-dependencies")
     override lateinit var extractDirectory: File
 
     @Parameter(defaultValue = "\${project.build.directory}/test-js")
     override lateinit var outputDirectory: File
 
-    @Parameter(defaultValue = "\${project.artifactId}-test.bundle.js")
+    @Parameter(defaultValue = "\${project.artifactId}-tests.bundle.js")
     override lateinit var outputFilename: String
 
     override fun projectJsFiles(): Sequence<File> {
