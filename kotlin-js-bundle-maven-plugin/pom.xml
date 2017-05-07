@@ -204,7 +204,10 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
-                            <goals>clean install</goals>
+                            <goals>
+                                <goal>clean</goal>
+                                <goal>install</goal>
+                            </goals>
                             <invokerTest>foo</invokerTest>
                         </configuration>
                     </execution>
@@ -215,7 +218,10 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
-                            <goals>clean install</goals>
+                            <goals>
+                                <goal>clean</goal>
+                                <goal>install</goal>
+                            </goals>
                             <invokerTest>bar</invokerTest>
                         </configuration>
                     </execution>
@@ -226,7 +232,10 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
-                            <goals>clean install</goals>
+                            <goals>
+                                <goal>clean</goal>
+                                <goal>install</goal>
+                            </goals>
                             <invokerTest>baz</invokerTest>
                         </configuration>
                     </execution>
@@ -237,7 +246,10 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
-                            <goals>clean install</goals>
+                            <goals>
+                                <goal>clean</goal>
+                                <goal>install</goal>
+                            </goals>
                             <invokerTest>quux</invokerTest>
                         </configuration>
                     </execution>
@@ -248,7 +260,10 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
-                            <goals>clean install</goals>
+                            <goals>
+                                <goal>clean</goal>
+                                <goal>install</goal>
+                            </goals>
                             <invokerTest>quuz</invokerTest>
                         </configuration>
                     </execution>
@@ -259,7 +274,10 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
-                            <goals>clean install</goals>
+                            <goals>
+                                <goal>clean</goal>
+                                <goal>install</goal>
+                            </goals>
                             <invokerTest>foobar</invokerTest>
                         </configuration>
                     </execution>
@@ -270,7 +288,10 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
-                            <goals>clean install</goals>
+                            <goals>
+                                <goal>clean</goal>
+                                <goal>install</goal>
+                            </goals>
                             <invokerTest>foobaz</invokerTest>
                         </configuration>
                     </execution>
@@ -281,7 +302,10 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
-                            <goals>clean install</goals>
+                            <goals>
+                                <goal>clean</goal>
+                                <goal>install</goal>
+                            </goals>
                             <invokerTest>quuxquuz</invokerTest>
                         </configuration>
                     </execution>
