@@ -30,13 +30,13 @@
                     <execution>
                         <id>bundle</id>
                         <goals>
-                            <goal>bundle-js-dependencies</goal>
+                            <goal>bundle</goal>
                         </goals>
                     </execution>
                     <execution>
                         <id>test-bundle</id>
                         <goals>
-                            <goal>bundle-js-test-dependencies</goal>
+                            <goal>test-bundle</goal>
                         </goals>
                     </execution>
                 </executions>

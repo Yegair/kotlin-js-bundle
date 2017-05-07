@@ -25,13 +25,13 @@ package io.yegair.kotlinjs.maven.bundle
  */
 
 import org.apache.maven.artifact.Artifact
+import org.apache.maven.artifact.resolver.filter.ScopeArtifactFilter
 import org.apache.maven.execution.MavenSession
 import org.apache.maven.plugin.AbstractMojo
 import org.apache.maven.plugins.annotations.Component
 import org.apache.maven.plugins.annotations.Parameter
 import org.apache.maven.project.DefaultProjectBuildingRequest
 import org.apache.maven.project.MavenProject
-import org.apache.maven.shared.artifact.filter.ScopeArtifactFilter
 import org.apache.maven.shared.dependency.graph.DependencyGraphBuilder
 import org.apache.maven.shared.dependency.graph.DependencyNode
 import org.codehaus.plexus.archiver.UnArchiver
@@ -53,9 +53,15 @@ abstract class BundleJsDependenciesMojo : AbstractMojo() {
     @Component
     private lateinit var archiverManager: ArchiverManager
 
+    /**
+     * The current Maven project.
+     */
     @Parameter(defaultValue = "\${project}", readonly = true, required = true)
     protected lateinit var project: MavenProject
 
+    /**
+     * The current Maven session.
+     */
     @Parameter(defaultValue = "\${session}", readonly = true, required = true)
     protected lateinit var session: MavenSession
 
@@ -92,6 +98,14 @@ abstract class BundleJsDependenciesMojo : AbstractMojo() {
      */
     private val outputFile: Path get() = outputDirectory.toPath().resolve(outputFilename)
 
+    /**
+     * Scope of the dependencies that should be bundled, e.g. [Artifact.SCOPE_COMPILE].
+     */
+    protected abstract val dependencyScope: String
+
+    /**
+     * Implementation of  [org.apache.maven.plugin.Mojo.execute]
+     */
     override fun execute() {
 
         when {
@@ -113,7 +127,7 @@ abstract class BundleJsDependenciesMojo : AbstractMojo() {
     private fun bundleJsDependencies() {
 
         val graph = buildDependencyGraph()
-        val collector = JsDependencyCollector(log)
+        val collector = JsDependencyCollector()
         val filter = JsDependencyFilter()
 
         graph.accept(collector)
@@ -131,7 +145,7 @@ abstract class BundleJsDependenciesMojo : AbstractMojo() {
         val request = DefaultProjectBuildingRequest(sessionRequest)
         request.project = project
 
-        return dependencyGraphBuilder.buildDependencyGraph(request, ScopeArtifactFilter("compile"))
+        return dependencyGraphBuilder.buildDependencyGraph(request, ScopeArtifactFilter(dependencyScope))
     }
 
     /**
@@ -197,7 +211,7 @@ abstract class BundleJsDependenciesMojo : AbstractMojo() {
      * Wraps everything that is written to the given [PrintWriter] within the given `block` into
      * `<editor-fold>` comments with the given description.
      */
-    private fun editorFold(writer:PrintWriter, description: String, block: () -> Unit) {
+    private fun editorFold(writer: PrintWriter, description: String, block: () -> Unit) {
         startEditorFold(writer, description)
         block()
         endEditorFold(writer)
@@ -215,7 +229,7 @@ abstract class BundleJsDependenciesMojo : AbstractMojo() {
     /**
      * Writes a closing `<editor-fold>` comment.
      */
-    private fun endEditorFold(writer:PrintWriter) {
+    private fun endEditorFold(writer: PrintWriter) {
         if (editorFold) {
             writer.println("// </editor-fold>\n")
         }

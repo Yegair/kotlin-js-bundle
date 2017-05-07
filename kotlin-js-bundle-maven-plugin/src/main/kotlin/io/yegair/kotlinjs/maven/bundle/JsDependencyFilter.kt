@@ -35,12 +35,19 @@ import java.nio.file.Paths
  * `.meta.js`, `.min.js`, `.bundle.js`
  *
  * @author Hauke Jaeger, hauke.jaeger@yegair.io
+ *
+ * @param pattern The pattern for files that should be included (see [java.nio.file.FileSystem.getPathMatcher]).
+ * @property excludeSuffixes zero or more file suffixes that should be excluded
  */
 class JsDependencyFilter(
         pattern: String = "glob:**.js",
-        private val matcher: PathMatcher = FileSystems.getDefault().getPathMatcher(pattern),
-        private val excludes: List<String> = listOf(".meta.js", ".min.js", ".bundle.js")
+        private val excludeSuffixes: List<String> = listOf(".meta.js", ".min.js", ".bundle.js")
 ) {
+
+    /**
+     * Checks whether a file/path should be included
+     */
+    private val matcher: PathMatcher = FileSystems.getDefault().getPathMatcher(pattern)
 
     /**
      * Tests whether the given path is a file that should be included in the bundle.
@@ -50,11 +57,15 @@ class JsDependencyFilter(
     /**
      * Tests whether the given path should be included in the bundle.
      */
-    fun test(path: Path): Boolean =
-            matcher.matches(path) &&
-                    path.nameCount > 0 &&
-                    !excludes.any { exclude ->
-                        path.last().toString().endsWith(exclude)
-                    }
+    fun test(path: Path): Boolean = matcher.matches(path) && !isExcluded(path)
 
+    /**
+     * Tests whether the given path is excluded according to [excludeSuffixes]
+     */
+    private fun isExcluded(path: Path): Boolean {
+
+        return excludeSuffixes.any { exclude ->
+            path.toString().endsWith(exclude)
+        }
+    }
 }

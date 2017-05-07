@@ -1,10 +1,7 @@
 package io.yegair.kotlinjs.maven.bundle
 
-import org.apache.maven.plugin.logging.Log
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertIterableEquals
 import org.junit.jupiter.api.Test
-import org.mockito.Mockito
 
 /**
  * Unit test for [JsDependencyCollector]
@@ -17,8 +14,7 @@ internal class JsDependencyCollectorTest {
     fun collectsRoot() {
 
         // given
-        val log = mockLog()
-        val collector = JsDependencyCollector(log)
+        val collector = JsDependencyCollector()
         val graph = root("org.foo", "bar", "1.0")
 
         // when
@@ -34,7 +30,7 @@ internal class JsDependencyCollectorTest {
     fun collectsChildren() {
 
         // given
-        val collector = JsDependencyCollector(mockLog())
+        val collector = JsDependencyCollector()
         val graph = root("org.foo", "bar", "1.1") {
             child("org.foo", "baz", "1.0") {
                 child("com.acme", "lib", "1.0") {
@@ -68,9 +64,5 @@ internal class JsDependencyCollectorTest {
                 artifact("io.foobar", "foo", "0.0.1"),
                 artifact("org.foo", "bar", "1.1")
         ), collector)
-    }
-
-    private fun mockLog(): Log {
-        return Mockito.mock(Log::class.java)
     }
 }

@@ -150,6 +150,13 @@
                 <artifactId>dokka-maven-plugin</artifactId>
                 <configuration>
                     <skip>false</skip>
+                    <sourceLinks>
+                        <link>
+                            <dir>${project.basedir}</dir>
+                            <url>https://github.com/Yegair/kotlin-js-bundle/tree/master/kotlin-js-bundle-maven-plugin</url>
+                            <urlSuffix>#L</urlSuffix>
+                        </link>
+                    </sourceLinks>
                 </configuration>
                 <executions>
                     <execution>
@@ -265,6 +272,17 @@
                         <configuration>
                             <goals>clean install</goals>
                             <invokerTest>foobaz</invokerTest>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>it-quuxquuz</id>
+                        <goals>
+                            <goal>install</goal>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <goals>clean install</goals>
+                            <invokerTest>quuxquuz</invokerTest>
                         </configuration>
                     </execution>
                 </executions>

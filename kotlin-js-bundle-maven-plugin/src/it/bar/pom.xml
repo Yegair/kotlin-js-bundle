@@ -28,7 +28,7 @@
                     <execution>
                         <id>bundle</id>
                         <goals>
-                            <goal>bundle-js-dependencies</goal>
+                            <goal>bundle</goal>
                         </goals>
                     </execution>
                 </executions>

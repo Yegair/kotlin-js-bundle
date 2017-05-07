@@ -1,1 +1,3 @@
-function quux() { return "quux"; }
+function quux() {
+    return Alphabet.q() + Alphabet.u() + Alphabet.u() + Alphabet.x();
+}

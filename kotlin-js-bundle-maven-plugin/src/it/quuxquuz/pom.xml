@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.yegair.maven.it</groupId>
-    <artifactId>foobar</artifactId>
+    <artifactId>quuxquuz</artifactId>
     <version>0.0.1.BUILD-SNAPSHOT</version>
 
-    <name>Foobar</name>
-    <description>A simple Jar containing a JS script which depends on the dependencies JS scripts</description>
+    <name>QuuxQuuz</name>
+    <description>A simple Jar containing a JS script, compile dependencies, provided dependencies, test dependencies</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -18,30 +18,49 @@
     <dependencies>
         <dependency>
             <groupId>io.yegair.maven.it</groupId>
-            <artifactId>foo</artifactId>
+            <artifactId>quux</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.yegair.maven.it</groupId>
-            <artifactId>bar</artifactId>
+            <artifactId>quuz</artifactId>
             <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.yegair.maven.it</groupId>
+            <artifactId>foo</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.yegair.maven.it</groupId>
+            <artifactId>foobar</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
     <build>
+        <outputDirectory>${project.build.directory}/js</outputDirectory>
+        <testOutputDirectory>${project.build.directory}/test-js</testOutputDirectory>
         <plugins>
             <plugin>
                 <groupId>@project.groupId@</groupId>
                 <artifactId>@project.artifactId@</artifactId>
                 <version>@project.version@</version>
-                <configuration>
-                    <editorFold>false</editorFold>
-                </configuration>
                 <executions>
                     <execution>
                         <id>bundle</id>
                         <goals>
                             <goal>bundle</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>test-bundle</id>
+                        <goals>
+                            <goal>test-bundle</goal>
                         </goals>
                     </execution>
                 </executions>

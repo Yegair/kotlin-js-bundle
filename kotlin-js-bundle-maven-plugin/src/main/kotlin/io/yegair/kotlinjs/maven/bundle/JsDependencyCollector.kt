@@ -25,7 +25,6 @@ package io.yegair.kotlinjs.maven.bundle
  */
 
 import org.apache.maven.artifact.Artifact
-import org.apache.maven.plugin.logging.Log
 import org.apache.maven.shared.dependency.graph.DependencyNode
 import org.apache.maven.shared.dependency.graph.traversal.DependencyNodeVisitor
 
@@ -35,7 +34,7 @@ import org.apache.maven.shared.dependency.graph.traversal.DependencyNodeVisitor
  *
  * @author Hauke Jaeger, hauke.jaeger@yegair.io
  */
-class JsDependencyCollector(val log: Log) : DependencyNodeVisitor, Iterable<Artifact> {
+class JsDependencyCollector : DependencyNodeVisitor, Iterable<Artifact> {
 
     /**
      * All artifacts that have already been visited.
@@ -52,23 +51,41 @@ class JsDependencyCollector(val log: Log) : DependencyNodeVisitor, Iterable<Arti
      */
     val dependencies get() = collected.toList()
 
+    /**
+     * Starts visiting a node
+     */
     override fun visit(node: DependencyNode?): Boolean = true
 
+    /**
+     * Finishes visiting a node. Adds the artifact to the list of collected artifacts if it has
+     * not already been collected from a visit to a different node.
+     */
     override fun endVisit(node: DependencyNode?): Boolean {
 
         val artifact = node?.artifact
 
-        if (artifact is Artifact && !visited.contains(artifact)) {
+        if (artifact is Artifact) {
 
-            if (artifact.type == "jar") {
-                collected.add(artifact)
+            if (!alreadyVisited(artifact)) {
+                collect(artifact)
             }
 
-            visited.add(artifact)
+            markVisited(artifact)
         }
 
-        log.info("${artifact?.groupId} : ${artifact?.artifactId} : ${artifact?.version}")
         return true
+    }
+
+    private fun alreadyVisited(artifact: Artifact): Boolean {
+        return visited.contains(artifact)
+    }
+
+    private fun collect(artifact: Artifact) {
+        collected.add(artifact)
+    }
+
+    private fun markVisited(artifact: Artifact) {
+        visited.add(artifact)
     }
 
     override fun iterator(): Iterator<Artifact> = dependencies.iterator()
