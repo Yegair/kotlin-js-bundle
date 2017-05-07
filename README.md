@@ -2,19 +2,7 @@
 
 [![Build Status](https://travis-ci.org/Yegair/kotlin-js-bundle.svg?branch=master)](https://travis-ci.org/Yegair/kotlin-js-bundle)
 
-## Maven Plugin
-
-```XML
-<build>
-  <plugins>
-    <plugin>
-      <groupId>io.yegair</groupId>
-      <artifactId>kotlin-js-bundle-maven-plugin</artifactId>
-      <version>${kotlin-js-bundle.version}</version>
-    </plugin>
-  </plugins>
-</build>
-```
+## [Guide](docs/guide.md)
 
 ### Using the latest SNAPSHOT version
 
