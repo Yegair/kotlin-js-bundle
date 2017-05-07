@@ -7,7 +7,7 @@ function snapshot() {
 
 function release() {
     echo "release build"
-    mvn clean dokka:javadocJar source:jar-no-fork install -V -U --settings travis/settings.xml
+    mvn clean dokka:javadocJar source:jar-no-fork deploy -V -U --settings travis/settings.xml
 }
 
 function build() {
@@ -16,7 +16,8 @@ function build() {
 }
 
 function main() {
-    if [[ $TRAVIS_BRANCH == "develop" ]]; then snapshot;
+    if [[ $TRAVIS_PULL_REQUEST != "false" ]]; then build;
+    elif [[ $TRAVIS_BRANCH == "develop" ]]; then snapshot;
     elif [[ $TRAVIS_BRANCH == "master" ]]; then release;
     else build;
     fi;
