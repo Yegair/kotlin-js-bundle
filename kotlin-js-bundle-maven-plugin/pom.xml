@@ -8,7 +8,7 @@
     <parent>
         <groupId>io.yegair</groupId>
         <artifactId>kotlin-js-bundle</artifactId>
-        <version>0.0.2-SNAPSHOT</version>
+        <version>0.0.1</version>
         <relativePath>..</relativePath>
     </parent>
 
