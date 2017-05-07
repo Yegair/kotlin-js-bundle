@@ -76,7 +76,7 @@ abstract class BundleJsDependenciesMojo : AbstractMojo() {
      * They make it possible to collapse regions of the bundle file in certain editors.
      */
     @Parameter(defaultValue = "true")
-    private var editorFold: Boolean = true
+    private var editorFold: Boolean = false
 
     /**
      * The directory where the dependencies will be extracted during the execution of this Mojo.
